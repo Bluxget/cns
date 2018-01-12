@@ -8,7 +8,7 @@
 	final class DB {
 		
 		private const DB_HOST = 'localhost';
-		private const DB_NAME = 'anna';
+		private const DB_NAME = 'cns';
 		private const DB_USER = 'root';
 		private const DB_PASSWORD = 'toor';
 		

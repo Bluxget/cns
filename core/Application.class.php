@@ -5,7 +5,7 @@
 	require_once \core\FileManager::getLibPath('http/Response');
 	require_once \core\FileManager::getLibPath('DB');
 	require_once \core\FileManager::getCorePath('View');
-	require_once \core\FileManager::getPersistencePath('Utilisateur');
+	require_once \core\FileManager::getPersistencePath('Users');
 
 	/**
 	 * Classe principale de l'application
@@ -30,9 +30,9 @@
 		public function init()
 		{
 			// Si l'utilisateur est connecté
-			if(\libs\http\Request::sessionExists('id_former'))
+			if(\libs\http\Request::sessionExists('id_user'))
 			{
-				$this->_user = \persistences\Former::getById((int)\libs\http\Request::sessionData('id_former'));
+				$this->_user = \persistences\Users::getById((int)\libs\http\Request::sessionData('id_user'));
 
 				// Chargement du controleur
 				if(\libs\http\Request::getExists('ctrl'))
@@ -59,11 +59,6 @@
 				$controller = '\\controllers\\'. $controller;
 				// Création de l'objet
 				$this->_controller = new $controller($this->_view);
-
-				if($this->_controller->getAccess() == 'responsable' && $this->_user->getRank() == 'formateur')
-				{
-					\libs\http\Response::redirect404();
-				}
 			}
 			else
 			{
