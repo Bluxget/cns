@@ -1,0 +1,83 @@
+/* ************************************ */
+/* *************** BODY *************** */
+/* ************************************ */
+body {
+	background-color: #f4f4f5;
+	background-image: url('bg.jpg');
+	font-family : roboto,calibri,arial;
+}
+/* ************************************ */
+/* ********** MENU INFERIEUR ********** */
+/* ************************************ */
+nav {
+	position: fixed;
+	width: 50%;
+	bottom: 0;
+}
+nav button {
+	position: fixed;
+	left: 50%;
+	margin-left: -1.2em;
+	bottom: -1.75em;
+	padding-bottom: 1em;
+	height: 3.5em;
+	width: 3.5em;
+	
+	border: 0;
+	border-radius: 50%;
+	
+	cursor: pointer;
+	
+	color: #7EABCE;
+	text-align: center;
+	font-size: 1.8em;
+	
+	background-color: #ffffff;
+}
+nav ul {
+	visibility: hidden;
+	list-style: none;
+	box-shadow: 6px 6px 6px #aaaaaa ; 
+	
+	position: fixed;
+	left: 50%;
+	margin-left: -9.25em;
+	bottom: 0;
+	padding: 0;
+	padding-left: 1em;
+	padding-right: 1em;
+	margin-bottom: 0;
+	
+	border: 0;
+	border-radius: 1em 1em 0 0;
+	
+	color: #ffffff;
+	text-align: center;
+	font-size: 1.6em;
+	
+	background-color: #7EABCE;
+}
+nav ul #nav-arrow {
+	position: fixed;
+	
+	bottom: 1.4em;
+	margin-left: 6.25em;
+}
+nav ul #nav-ul-li-center {
+	width: 1.5em;
+}
+nav ul #nav-ul-li-center:hover {
+	background-color: #7EABCE;
+}
+nav ul li {
+	display: inline-block;
+	
+	padding: 0.75em;
+}
+nav ul li:hover {
+	background-color: #9DCAEC;
+}
+nav ul li a {
+	color: #ffffff;
+	text-decoration: none;
+}
