@@ -1,11 +1,23 @@
-<form action="?ctrl=authentification&action=connect" method="POST">
-	<label for="firstName">Prénom :</label>
-	<input required type="text" name="firstName" placeholder ="ex: aiden" />
-	<label for="lastName">Nom :</label>
-	<input required type="text" name="lastName" placeholder ="ex: jones" />
-	<br /><br />
-	<label for="password">Mot de passe :</label>
-	<input required type="password" name="password" />
-	<br /><br />
-	<input type="submit" value="Se connecter" />
+<form action="?ctrl=authentification&action=connect" method="POST" class="col s12">
+	<div class="row">
+		<div class="input-field col s6">
+			<input id="firstName" name="firstName" type="text" class="validate" required />
+			<label for="firstName">Prénom</label>
+		</div>
+		<div class="input-field col s6">
+			<input id="lastName" name="lastName" type="text" class="validate" required />
+			<label for="lastName">Nom</label>
+		</div>
+	</div>
+	<div class="row">
+		<div class="input-field col s12">
+			<input id="password" name="password" type="password" class="validate" required />
+			<label for="password">Password</label>
+		</div>
+	</div>
+	<div class="row">
+		<div class="input-field col s12">
+			<input id="submit" name="submit" type="submit" class="btn validate" value="Se connecter" />
+		</div>
+	</div>
 </form>

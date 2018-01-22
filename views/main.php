@@ -11,7 +11,7 @@
 		<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 	</head>
 
-	<body>
+	<body class="grey lighten-1">
 		<div class="navbar-fixed">
 			<nav class="blue-grey darken-4" role="navigation">
 				<div class="nav-wrapper">
@@ -44,8 +44,20 @@
 
 
 		<div class="row">
-			<div class="col s12 m8 l9">
+		</div>
+
+
+		<div class="row">
+			<div class="col l2 xl2 hide-on-med-and-down">
+				
+			</div>
+
+			<div class="col s12 m12 l8 xl8 z-depth-4 center white">
 				<?php include_once $content; ?>
+			</div>
+
+			<div class="col l2 xl2 hide-on-med-and-down">
+				
 			</div>
 		</div>
 
