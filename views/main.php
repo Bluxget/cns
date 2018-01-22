@@ -11,7 +11,7 @@
 		<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 	</head>
 
-	<body class="grey lighten-1">
+	<body class="grey lighten-2">
 		<div class="navbar-fixed">
 			<nav class="blue-grey darken-4" role="navigation">
 				<div class="nav-wrapper">
