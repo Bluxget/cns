@@ -55,7 +55,6 @@
 		{
 			session_destroy();
 
-			$this->_view->setFile('authentification/form');
-			$this->_view->setTitle('Authentification');
+			\libs\http\Response::redirect('index.php');
 		}
 	}

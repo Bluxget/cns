@@ -25,7 +25,7 @@
 		}
 		
 		/**
-		 * Analyse la requête et l'execute si possible, sinon retourne une erreur 404
+		 * Analyse la requête et prépare son execution si possible, sinon retourne une erreur 404
 		 */
 		public function init()
 		{
