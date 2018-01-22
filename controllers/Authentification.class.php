@@ -2,7 +2,7 @@
 	namespace controllers;
 
 	require_once \core\FileManager::getCorePath('Controller');
-	require_once \core\FileManager::getPersistencePath('Former');
+	require_once \core\FileManager::getPersistencePath('Users');
 
 	class Authentification extends \core\Controller {
 
@@ -11,7 +11,7 @@
 		 */
 		public function actionDefault()
 		{
-			if(\libs\http\Request::sessionExists('id_former'))
+			if(\libs\http\Request::sessionExists('id_user'))
 				\libs\http\Response::redirect('index.php');
 
 			$this->_view->setFile('authentification/form');
@@ -23,21 +23,22 @@
 		 */
 		public function actionConnect()
 		{
-			if(\libs\http\Request::sessionExists('id_former'))
+			if(\libs\http\Request::sessionExists('id_user'))
 				\libs\http\Response::redirect('index.php');
 
-			if(isset($_POST['username'], $_POST['password']))
+			if(\libs\http\Request::postExists('firstName') && \libs\http\Request::postExists('lastName') && \libs\http\Request::postExists('password'))
 			{
 				$params = array(
-					'name' => \libs\http\Request::postData('username'), 
+					'firstName' => \libs\http\Request::postData('firstName'), 
+					'lastName' => \libs\http\Request::postData('lastName'), 
 					'password' => \libs\http\Request::postData('password')
 				);
 
-				$former = new \models\Former($params);
+				$user = new \models\User($params);
 
-				if(\persistences\Former::isValid($former) === TRUE)
+				if(\persistences\Users::isValid($user) === true)
 				{
-					$_SESSION['id_former'] = $former->getIdFormer();
+					$_SESSION['id_user'] = $user->getId();
 
 					\libs\http\Response::redirect('index.php');
 				}
