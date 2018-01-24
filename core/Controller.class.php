@@ -2,16 +2,16 @@
 	namespace core;
 
 	/**
-	 * Classe modèle des controllers
+	 * Classe modèle des contrôleurs
 	 */
 	abstract class Controller {
 		
-		protected $_view;
+		protected $_application;
 
-		public function __construct(View $view)
+		public function __construct(\core\Application &$application)
 		{
-			$this->_view = $view;
+			$this->_application = $application;
 		}
 
-		abstract public function actionDefault();
-	}
+		abstract public function execute(); // Fonction utilisée par l'application à chaque éxécution
+	};

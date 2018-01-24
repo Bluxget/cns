@@ -2,32 +2,22 @@
 	namespace controllers;
 
 	require_once \core\FileManager::getCorePath('Controller');
-	require_once \core\FileManager::getPersistencePath('Classeurs');
-	/*require_once \core\FileManager::getPersistencePath('Option');*/
 
 	class Apprenti extends \core\Controller {
 
-		/**
-		 * Affiche la liste des classeurs de l'apprenti
-		 */
-		public function actionDefault()
+		public function execute()
 		{
-			$datas['classeurs'] = \persistences\Classeurs::getByApprenti(\libs\http\Request::sessionData('id_user'));
-
-			$this->_view->setFile('apprenti/liste_classeur');
-			$this->_view->setTitle('Liste des classeurs');
-			$this->_view->setDatas($datas);
+			// si get page exist
+				// methode show page
+			// sinon
+				// Liste classeur
 		}
 
-		/**
-		 * Affiche la liste des classeurs de l'apprenti
-		 */
-		public function actionClasseur()
+		private function getPage(int $id_page)
 		{
-			$datas['classeurs'] = \persistences\Classeurs::getByApprenti(\libs\http\Request::sessionData('id_user'));
-
-			$this->_view->setFile('apprenti/liste_classeur');
-			$this->_view->setTitle('Liste des classeurs');
-			$this->_view->setDatas($datas);
+			// si page exist
+				// Contenu page
+			// sinon
+				// Erreur 404
 		}
-	}
+	};

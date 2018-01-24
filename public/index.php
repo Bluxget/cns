@@ -6,6 +6,4 @@
 
 	$app = new \core\Application;
 
-	$app->init();
-
 	$app->execute();

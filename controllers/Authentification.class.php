@@ -2,50 +2,51 @@
 	namespace controllers;
 
 	require_once \core\FileManager::getCorePath('Controller');
-	require_once \core\FileManager::getPersistencePath('Users');
+	require_once \core\FileManager::getDAOPath('Utilisateurs');
 
 	class Authentification extends \core\Controller {
 
 		/**
 		 * Affiche la page d'authentification
 		 */
-		public function actionDefault()
+		public function execute(string $action = null, int $param = null)
 		{
-			if(\libs\http\Request::sessionExists('id_user'))
-				\libs\http\Response::redirect('index.php');
+			if($action != null)
+			{
+				switch($action)
+				{
+					case 'connect':
+						$this->actionConnect();
+					break;
+					case 'disconnect':
+						$this->actionDisconnect();
+					break;
+				}
+			}
 
-			$this->_view->setFile('authentification/form');
-			$this->_view->setTitle('Authentification');
+			$this->_application->getView()->setFile('authentification/form');
+			$this->_application->getView()->setTitle('Authentification');
 		}
 
 		/**
 		 * L'utilisateur valide le formulaire d'authentification
 		 */
-		public function actionConnect()
+		private function actionConnect()
 		{
-			if(\libs\http\Request::sessionExists('id_user'))
-				\libs\http\Response::redirect('index.php');
-
 			if(\libs\http\Request::postExists('firstName') && \libs\http\Request::postExists('lastName') && \libs\http\Request::postExists('password'))
 			{
-				$params = array(
-					'firstName' => \libs\http\Request::postData('firstName'), 
-					'lastName' => \libs\http\Request::postData('lastName'), 
-					'password' => \libs\http\Request::postData('password')
-				);
+				$user = \dao\Utilisateurs::getUser(\libs\http\Request::postData('firstName'), \libs\http\Request::postData('lastName'), \libs\http\Request::postData('password'));
 
-				$user = new \models\User($params);
-
-				if(\persistences\Users::isValid($user) === true)
+				if($user != false)
 				{
-					$_SESSION['id_user'] = $user->getId();
+					$_SESSION['user'] = serialize($user);
 
 					\libs\http\Response::redirect('index.php');
 				}
 			}
 
-			$this->_view->setFile('authentification/error');
-			$this->_view->setTitle('Authentification');
+			$this->_application->getView()->setFile('authentification/error');
+			$this->_application->getView()->setTitle('Authentification');
 		}
 
 		/**

@@ -5,60 +5,55 @@
 	require_once \core\FileManager::getLibPath('http/Response');
 	require_once \core\FileManager::getLibPath('DB');
 	require_once \core\FileManager::getCorePath('View');
-	require_once \core\FileManager::getPersistencePath('Users');
 
 	/**
 	 * Classe principale de l'application
 	 */
 	class Application {
 		
-		private $_view;
-		private $_user;
-		private $_controller;
+		private $_controller, $_view;
+		private $_user, $_error, $_action, $_id = null;
 
-		/**
-		 * Constructeur
-		 */
 		public function __construct()
 		{
-			$this->_view = new \core\View;
+			if(\libs\http\Request::sessionExists('user'))
+			{
+				$this->_user = unserialize(\libs\http\Request::sessionData('user'));
+			}
+
+			if(\libs\http\Request::getExists('action'))
+			{
+				$this->_action = \libs\http\Request::getData('action');
+			}
+
+			if(\libs\http\Request::getExists('id'))
+			{
+				$this->_id = \libs\http\Request::getData('id');
+			}
+
+			$this->dispatcher();
+
+			$this->setView(new \core\View);
 		}
-		
-		/**
-		 * Analyse la requête et prépare son execution si possible, sinon retourne une erreur 404
-		 */
-		public function init()
+
+		public function getView() { return $this->_view; }
+		public function getError() { return $this->_error; }
+		public function getUser() { return $this->_user; }
+		public function getAction() { return $this->_action; }
+		public function getId() { return $this->_id; }
+
+		public function setView(\core\View $view) { $this->_view = $view; }
+		public function setError(\Exception $error) { $this->_error = $error; }
+		public function setUser(\models\User $user) { $this->_user = $user; }
+		public function setAction(string $action) { $this->_action = $action; }
+		public function setId(int $id) { $this->_id = $id; }
+
+		public function execute()
 		{
-			// Si l'utilisateur est connecté
-			if(\libs\http\Request::sessionExists('id_user'))
+			if($this->_error == null)
 			{
-				$this->_user = \persistences\Users::getById((int)\libs\http\Request::sessionData('id_user'));
-
-				// Chargement du controleur
-				if(\libs\http\Request::getExists('ctrl'))
-				{
-					$controller = \libs\http\Request::getData('ctrl');
-				}
-				else
-				{
-					\libs\http\Response::redirect('?ctrl=marks');
-				}
-			}
-			else
-			{
-				$controller = 'authentification';
-			}
-
-			$controller = ucfirst($controller);
-
-			if(file_exists(\core\FileManager::getControllerPath($controller)))
-			{
-				// Inclusion de la class du controleur
-				require_once \core\FileManager::getControllerPath($controller);
-
-				$controller = '\\controllers\\'. $controller;
-				// Création de l'objet
-				$this->_controller = new $controller($this->_view);
+				$this->_controller->execute($this->getAction(), $this->getId());
+				\libs\http\Response::send($this->_view);
 			}
 			else
 			{
@@ -66,32 +61,51 @@
 			}
 		}
 
-		/**
-		 * Lance l'application et retourne le texte à afficher
-		 */
-		public function execute()
+		private function dispatcher()
 		{
-			// Appel de la méthode par rapport au _GET ou default si inexistant
-			if(\libs\http\Request::getExists('action'))
+			// Si non connecté, controleur = authentification
+			if($this->_user == null || $this->getAction() == 'disconnect')
 			{
-				if(method_exists($this->_controller, 'action'. ucfirst(\libs\http\Request::getData('action'))))
-				{
-					$action = \libs\http\Request::getData('action');
-				}
-				else
-				{
-					\libs\http\Response::redirect404();
-				}
+				$controller = 'authentification';
 			}
 			else
 			{
-				$action = 'default';
+				$controller = 'apprenti';
+				// Si classe name
 			}
-
-			$action = 'action'. ucfirst($action);
-
-			$this->_controller->$action();
-
-			\libs\http\Response::send($this->_view);
+			// Sinon si controleur = account
+			// Sinon
+				// Si formateur connecté controleur = formateur
+				// Sinon si responsable
+				// Sinon si tuteur
+				// Sinon si apprenti
+				// Sinon erreur
+			try 
+			{
+				$this->loadController($controller);
+			}
+			catch(\Exception $e)
+			{
+				$this->setError($e);
+			}
 		}
-	}
+
+		private function loadController(string $controller)
+		{
+			$controller = ucfirst($controller);
+
+			if(file_exists(\core\FileManager::getControllerPath($controller)))
+			{
+				// Inclusion de la classe du controleur
+				require_once \core\FileManager::getControllerPath($controller);
+
+				$controller = '\\controllers\\'. $controller;
+				// Création de l'objet
+				$this->_controller = new $controller($this);
+			}
+			else
+			{
+				throw new \Exception('Controleur introuvable', 404);
+			}
+		}
+	};

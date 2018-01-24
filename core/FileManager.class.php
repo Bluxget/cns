@@ -6,7 +6,7 @@
 	 */
 	class FileManager {
 
-		public const PROJECT_PATH = '/srv/http/john/cns/'; // Ne pas oublier le / à la fin
+		public const PROJECT_PATH = '/srv/http/john/cns-bis/'; // Ne pas oublier le / à la fin
 
 		/**
 		 * Retourne le chemin du contrôleur demandé
@@ -69,19 +69,19 @@
 		}
 
 		/**
-		 * Retourne le chemin de la persistence demandé
+		 * Retourne le chemin de la DAO demandée
 		 *
 		 * @param string $file
 		 *
 		 * @return string
 		 */
-		public static function getPersistencePath(string $file)
+		public static function getDAOPath(string $file)
 		{
-			return self::PROJECT_PATH .'persistences/'. $file .'.class.php';
+			return self::PROJECT_PATH .'dao/'. $file .'.class.php';
 		}
 	}
 
 	// Inclusion automatique des models
 	spl_autoload_register(function ($class) {
-		require_once FileManager::getModelPath(str_replace('models\\', '', $class));
+		require_once FileManager::getModelPath(str_replace('dao\\', '', $class));
 	});

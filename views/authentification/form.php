@@ -1,4 +1,4 @@
-<form action="?ctrl=authentification&action=connect" method="POST" class="col s12">
+<form action="?action=connect" method="POST" class="col s12">
 	<div class="row">
 		<div class="input-field col s6">
 			<input id="firstName" name="firstName" type="text" class="validate" required />
