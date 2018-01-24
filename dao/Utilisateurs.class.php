@@ -2,7 +2,6 @@
 	namespace dao;
 
 	require_once \core\FileManager::getCorePath('DAO');
-	require_once \core\FileManager::getModelPath('Utilisateur');
 
 	class Utilisateurs extends \core\DAO {
 
@@ -58,7 +57,7 @@
 					$user = '\\models\\'. ucfirst($userType);
 				}
 				// Création de l'objet
-				return new $user($params);
+				return new $user($params); // Appel persistences rapport au le type d'utilisateur
 			}
 			return false;
 		}
