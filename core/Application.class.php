@@ -72,7 +72,8 @@
 			else
 			{
 				$this->getView()->enableNav();
-				$controller = str_replace("models\\", "", get_class($this->getUser()));
+				$this->getView()->setUser($this->getUser());
+				$controller = str_replace('models\\', '', get_class($this->getUser()));
 				//var_dump($controller);
 
 			}

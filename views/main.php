@@ -27,12 +27,12 @@
 			<li><a href="#!">Page 2</a></li>
 			<li class="divider"></li>
 		</ul>
-		
+
 		<ul id="slide-out" class="side-nav">
 			<li>
 				<div class="user-view blue-grey darken-4">
-					<a href="#!name"><span class="white-text name">John Doe</span></a>
-					<a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
+					<h2><a href="#!name"><span class="white-text name"><?=ucfirst($user->getPrenom()); ?> <?=ucfirst($user->getNom()); ?></span></a></h2>
+					<a href="#!email"><span class="white-text email"><!--mail@exemple.fr--></span></a>
 				</div>
 			</li>
 			<li><a href="?action=disconnect">Deconnexion</a></li>
@@ -48,7 +48,7 @@
 
 		<div class="row">
 			<div class="col l2 xl2 hide-on-med-and-down">
-				
+
 			</div>
 
 			<div class="col s12 m12 l8 xl8 z-depth-4 center white">
@@ -56,7 +56,7 @@
 			</div>
 
 			<div class="col l2 xl2 hide-on-med-and-down">
-				
+
 			</div>
 		</div>
 
