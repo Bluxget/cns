@@ -2,7 +2,6 @@
 	namespace controllers;
 
 	require_once \core\FileManager::getCorePath('Controller');
-	//require_once \core\FileManager::getDAOPath('Utilisateurs');
 
 	class Authentification extends \core\Controller {
 
@@ -23,9 +22,11 @@
 					break;
 				}
 			}
-
-			$this->_application->getView()->setFile('authentification/form');
-			$this->_application->getView()->setTitle('Authentification');
+			else
+			{
+				$this->_application->getView()->setFile('authentification/form');
+				$this->_application->getView()->setTitle('Authentification');
+			}
 		}
 
 		/**
@@ -35,7 +36,6 @@
 		{
 			if(\libs\http\Request::postExists('firstName') && \libs\http\Request::postExists('lastName') && \libs\http\Request::postExists('password'))
 			{
-				//$user = \dao\Utilisateurs::getUser(\libs\http\Request::postData('firstName'), \libs\http\Request::postData('lastName'), \libs\http\Request::postData('password'));
 				$user = $this->getUser(\libs\http\Request::postData('firstName'), \libs\http\Request::postData('lastName'), \libs\http\Request::postData('password'));
 
 				if($user != false)
@@ -77,12 +77,12 @@
 						$userType = '\\models\\'. $userType;
 
 						$params = array(
-							'id' => $req['id_utilisateur'],
+							'id' => (int)$req['id_utilisateur'],
 							'prenom' => $prenom,
 							'nom' => $nom
 						);
 						// Création de l'objet
-						return $userType($params);
+						return new $userType($params);
 					}
 				}
 			}

@@ -18,17 +18,17 @@
 		{
 			if(\libs\http\Request::sessionExists('user'))
 			{
-				$this->_user = unserialize(\libs\http\Request::sessionData('user'));
+				$this->setUser(unserialize(\libs\http\Request::sessionData('user')));
 			}
 
 			if(\libs\http\Request::getExists('action'))
 			{
-				$this->_action = \libs\http\Request::getData('action');
+				$this->setAction(\libs\http\Request::getData('action'));
 			}
 
 			if(\libs\http\Request::getExists('id'))
 			{
-				$this->_id = \libs\http\Request::getData('id');
+				$this->setId(\libs\http\Request::getData('id'));
 			}
 
 			$this->dispatcher();
@@ -36,7 +36,7 @@
 			$this->setView(new \core\View);
 		}
 
-		public function getView() { return $this->_view; }
+		public function &getView() { return $this->_view; }
 		public function getError() { return $this->_error; }
 		public function getUser() { return $this->_user; }
 		public function getAction() { return $this->_action; }
@@ -44,7 +44,7 @@
 
 		public function setView(\core\View $view) { $this->_view = $view; }
 		public function setError(\Exception $error) { $this->_error = $error; }
-		public function setUser(\models\User $user) { $this->_user = $user; }
+		public function setUser($user) { $this->_user = $user; }
 		public function setAction(string $action) { $this->_action = $action; }
 		public function setId(int $id) { $this->_id = $id; }
 

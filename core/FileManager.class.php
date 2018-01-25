@@ -83,5 +83,5 @@
 
 	// Inclusion automatique des models
 	spl_autoload_register(function ($class) {
-		require_once FileManager::getModelPath(str_replace('dao\\', '', $class));
+		require_once FileManager::getModelPath(str_replace('models\\', '', $class));
 	});

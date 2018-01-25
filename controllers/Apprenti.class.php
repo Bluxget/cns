@@ -11,6 +11,9 @@
 				// methode show page
 			// sinon
 				// Liste classeur
+
+			$this->_application->getView()->setFile('apprenti/liste_classeur');
+			$this->_application->getView()->setTitle('Apprenti');
 		}
 
 		private function getPage(int $id_page)

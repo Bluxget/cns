@@ -35,8 +35,7 @@
 					<a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
 				</div>
 			</li>
-			<li><a href="">Mon compte</a></li>
-			<li><a href="">Deconnexion</a></li>
+			<li><a href="?action=disconnect">Deconnexion</a></li>
 			<li class="divider"></li>
 			<li><a href="">Classeur</a></li>
 			<li><a class="dropdown-button" href="#!" data-activates="side_pages_classeur">Pages<i class="material-icons right">arrow_drop_down</i></a></li>
