@@ -20,7 +20,7 @@
 		/**
 		 * Hydrate
 		 */
-		public function hydrate(array $datas)
+		protected function hydrate(array $datas)
 		{
 			foreach($datas as $key => $value)
 			{
@@ -32,4 +32,4 @@
 				}
 			}
 		}
-	}
+	};

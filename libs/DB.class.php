@@ -85,4 +85,4 @@
 		{
 			return self::$_db->lastInsertId();
 		}
-	}
+	};

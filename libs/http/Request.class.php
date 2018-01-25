@@ -18,4 +18,4 @@
 
 		public static function getExists(string $key) { return isset($_GET[$key]); }
 		public static function getData(string $key) { return self::getExists($key) ? $_GET[$key] : null; }
-	}
+	};

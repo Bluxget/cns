@@ -79,7 +79,7 @@
 		{
 			return self::PROJECT_PATH .'dao/'. $file .'.class.php';
 		}
-	}
+	};
 
 	// Inclusion automatique des models
 	spl_autoload_register(function ($class) {

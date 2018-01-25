@@ -13,4 +13,4 @@
 		{ 
 			$this->_cursus = $cursus;
 		}
-	}
+	};

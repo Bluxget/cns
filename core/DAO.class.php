@@ -8,4 +8,4 @@
 		
 		abstract public static function getAll();
 		abstract public static function getById(int $id);
-	}
+	};

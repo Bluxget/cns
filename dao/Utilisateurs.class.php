@@ -27,7 +27,7 @@
 		
 		public static function getById(int $id)
 		{
-			$user = \libs\DB::query('SELECT * FROM utilisateurs WHERE id_utilisateur = ?', array($id))->fetch();
+			$user = \libs\DB::query('SELECT * FROM utilisateurs WHERE id_utilisateur = ? LIMIT 1', array($id))->fetch();
 			$params = array(
 						'id' => $user['id_utilisateur'],
 						'prenom' => $user['prenom'],
@@ -50,14 +50,16 @@
 						'mdp' => $req['mot_de_passe']
 					);
 
+				$user = new $user($params);
+
 				$userType = static::getUserType($params['id']);
 
 				if($userType != false)
 				{
-					$user = '\\models\\'. ucfirst($userType);
+					$user = '\\dao\\'. ucfirst($userType);
+
+					return \dao\$userType->getById($user);// Appel persistences rapport au le type d'utilisateur
 				}
-				// Création de l'objet
-				return new $user($params); // Appel persistences rapport au le type d'utilisateur
 			}
 			return false;
 		}
@@ -65,14 +67,14 @@
 		private static function getUserType(int $id)
 		{
 			$req = \libs\DB::query('SELECT * FROM apprentis WHERE id_utilisateur = ? LIMIT 1', array($id))->fetch();
-			if($req != false) { return 'apprenti'; }
+			if($req != false) { return 'apprentis'; }
 			$req = \libs\DB::query('SELECT * FROM tuteurs WHERE id_utilisateur = ? LIMIT 1', array($id))->fetch();
-			if($req != false) { return 'tuteur'; }
+			if($req != false) { return 'tuteurs'; }
 			$req = \libs\DB::query('SELECT * FROM formateurs WHERE id_utilisateur = ? LIMIT 1', array($id))->fetch();
-			if($req != false) { return 'formateur'; }
+			if($req != false) { return 'formateurs'; }
 			$req = \libs\DB::query('SELECT * FROM responsables WHERE id_utilisateur = ? LIMIT 1', array($id))->fetch();
-			if($req != false) { return 'responsable'; }
+			if($req != false) { return 'responsables'; }
 
 			return false;
 		}
-	}
+	};
