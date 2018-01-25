@@ -31,9 +31,9 @@
 				$this->setId(\libs\http\Request::getData('id'));
 			}
 
-			$this->dispatcher();
-
 			$this->setView(new \core\View);
+
+			$this->dispatcher();
 		}
 
 		public function &getView() { return $this->_view; }
@@ -66,10 +66,12 @@
 			// Si non connecté, controleur = authentification
 			if($this->_user == null || $this->getAction() == 'disconnect')
 			{
+				$this->getView()->disableNav();
 				$controller = 'authentification';
 			}
 			else
 			{
+				$this->getView()->enableNav();
 				$controller = 'apprenti';
 				// Si classe name
 			}

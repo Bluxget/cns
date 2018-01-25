@@ -15,13 +15,13 @@
 		<div class="navbar-fixed">
 			<nav class="blue-grey darken-4" role="navigation">
 				<div class="nav-wrapper">
-					<a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+					<?php if($menu): ?><a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a><?php endif; ?>
 					<a id="logo-container" href="index.php" class="brand-logo center">CNS - <?=$this->getTitle(); ?></a>
 				</div>
 			</nav>
 		</div>
 
-
+	<?php if($menu): ?>
 		<ul id="side_pages_classeur" class="dropdown-content">
 			<li><a href="#!">Page 1</a></li>
 			<li><a href="#!">Page 2</a></li>
@@ -40,7 +40,7 @@
 			<li><a href="">Classeur</a></li>
 			<li><a class="dropdown-button" href="#!" data-activates="side_pages_classeur">Pages<i class="material-icons right">arrow_drop_down</i></a></li>
 		</ul>
-
+	<?php endif; ?>
 
 		<div class="row">
 		</div>
