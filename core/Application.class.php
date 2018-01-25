@@ -10,7 +10,7 @@
 	 * Classe principale de l'application
 	 */
 	class Application {
-		
+
 		private $_controller, $_view;
 		private $_user, $_error, $_action, $_id = null;
 
@@ -72,17 +72,11 @@
 			else
 			{
 				$this->getView()->enableNav();
-				$controller = 'apprenti';
-				// Si classe name
+				$controller = str_replace("models\\", "", get_class($this->getUser()));
+				//var_dump($controller);
+
 			}
-			// Sinon si controleur = account
-			// Sinon
-				// Si formateur connecté controleur = formateur
-				// Sinon si responsable
-				// Sinon si tuteur
-				// Sinon si apprenti
-				// Sinon erreur
-			try 
+			try
 			{
 				$this->loadController($controller);
 			}
