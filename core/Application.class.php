@@ -38,7 +38,7 @@
 
 		public function &getView() { return $this->_view; }
 		public function getError() { return $this->_error; }
-		public function getUser() { return $this->_user; }
+		public function &getUser() { return $this->_user; }
 		public function getAction() { return $this->_action; }
 		public function getId() { return $this->_id; }
 
