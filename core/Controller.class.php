@@ -13,5 +13,5 @@
 			$this->_application = $application;
 		}
 
-		abstract public function execute(string $action = null, int $param = null); // Méthode utilisée par l'application à chaque éxécution
+		abstract public function execute(string $action = null, int $id = null); // Méthode utilisée par l'application à chaque éxécution
 	};

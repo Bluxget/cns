@@ -8,7 +8,7 @@
 		/**
 		 * Affiche la page d'authentification
 		 */
-		public function execute(string $action = null, int $param = null)
+		public function execute(string $action = null, int $id = null)
 		{
 			if($action != null)
 			{

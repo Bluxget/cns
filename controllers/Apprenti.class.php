@@ -5,7 +5,7 @@
 
 	class Apprenti extends \core\Controller {
 
-		public function execute(string $action = null, int $param = null)
+		public function execute(string $action = null, int $id = null)
 		{
 			$view = $this->_application->getView();
 			$user = $this->_application->getUser();
@@ -27,7 +27,7 @@
 				$datas['tuteur'] = $user->getTuteur();
 				$datas['cursus'] = $user->getCursus();
 
-				$view->setFile('apprenti/liste_classeur');
+				$view->setFile('apprenti/classeur');
 				$view->setTitle('Apprenti');
 				$view->setDatas($datas);
 			}
