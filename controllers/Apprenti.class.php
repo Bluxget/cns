@@ -5,20 +5,37 @@
 
 	class Apprenti extends \core\Controller {
 
-		public function execute()
+		public function execute(string $action = null, int $param = null)
 		{
 			$view = $this->_application->getView();
 			$user = $this->_application->getUser();
 
-			$datas['cursus'] = $user->getCursus();
-			// si get page exist
-				// methode show page
-			// sinon
-				// Liste classeur
+			if($action != null)
+			{
+				switch($action)
+				{
+					case 'classeur':
+						$this->getClasseur();
+					break;
+					case 'page':
+						$this->getPage();
+					break;
+				}
+			}
+			else
+			{
+				$datas['tuteur'] = $user->getTuteur();
+				$datas['cursus'] = $user->getCursus();
 
-			$view->setFile('apprenti/liste_classeur');
-			$view->setTitle('Apprenti');
-			$view->setDatas($datas);
+				$view->setFile('apprenti/liste_classeur');
+				$view->setTitle('Apprenti');
+				$view->setDatas($datas);
+			}
+		}
+
+		private function getClasseur(int $id_classeur)
+		{
+
 		}
 
 		private function getPage(int $id_page)
