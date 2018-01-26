@@ -5,10 +5,14 @@
 
 	class Apprenti extends \models\Utilisateur {
 
-		private $_cursus;
 		private $_tuteur;
 
-		public function getCursus() { return $this->_cursus; }
+		public function getCursus()
+		{
+			$req = \libs\DB::query('SELECT cursus.id_cursus, cursus.annee_debut AS annee_debut, cursus.annee_fin AS annee_fin FROM apprentis_cursus JOIN cursus ON cursus.id_cursus = apprentis_cursus.id_cursus WHERE apprentis_cursus.id_apprenti = ?', array($this->getId()))->fetchAll();
+
+			return $req;
+		}
 		public function getTuteur() { return $this->_tuteur; }
 
 		public function setCursus(array $cursus)

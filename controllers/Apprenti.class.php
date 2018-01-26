@@ -7,13 +7,18 @@
 
 		public function execute()
 		{
+			$view = $this->_application->getView();
+			$user = $this->_application->getUser();
+
+			$datas['cursus'] = $user->getCursus();
 			// si get page exist
 				// methode show page
 			// sinon
 				// Liste classeur
 
-			$this->_application->getView()->setFile('apprenti/liste_classeur');
-			$this->_application->getView()->setTitle('Apprenti');
+			$view->setFile('apprenti/liste_classeur');
+			$view->setTitle('Apprenti');
+			$view->setDatas($datas);
 		}
 
 		private function getPage(int $id_page)
