@@ -22,11 +22,14 @@
 		</div>
 
 	<?php if($menu): ?>
+		<?php if(isset($datas['pages'])): ?>
 		<ul id="side_pages_classeur" class="dropdown-content">
-			<li><a href="#!">Page 1</a></li>
-			<li><a href="#!">Page 2</a></li>
+			<?php foreach($datas['pages'] as $page): ?>
+			<li><a href="?action=page&id=<?=$page['id_page']; ?>"><?=$page['titre']; ?></a></li>
+			<?php endforeach; ?>
 			<li class="divider"></li>
 		</ul>
+		<?php endif; ?>
 
 		<ul id="slide-out" class="side-nav">
 			<li>

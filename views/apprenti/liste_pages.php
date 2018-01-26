@@ -6,9 +6,9 @@
 </div>
 
 <div class="row">
-<?php foreach($datas['cursus'] as $cursus): ?>
+<?php foreach($datas['pages'] as $page): ?>
 	<div class="collection">
-		<a href="?action=classeur&id=<?=$cursus['id_classeur']; ?>" class="collection-item"><?=$cursus['annee_debut']; ?> - <?=$cursus['annee_fin']; ?></a>
+		<a href="?action=page&id=<?=$page['id_page']; ?>" class="collection-item"><?=$page['titre']; ?></a>
 	</div>
 <?php endforeach; ?>
 </div>
