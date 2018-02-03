@@ -2,7 +2,7 @@
 	<h4><?=$datas['page']['titre']; ?></h4>
 </div>
 
-<form>
+<form action="?action=modifierpage&id=<?=$datas['page']['id_page']; ?>"  method="post">
 	<div class="row left">
 		<?=$datas['page']['contenu']; ?>
 	</div>
@@ -13,3 +13,7 @@
 		</div>
 	</div>
 </form>
+
+<div class="row right">
+	<h6>Page <?=$datas['page']['position']; ?></h6>
+</div>
