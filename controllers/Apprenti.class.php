@@ -21,7 +21,7 @@
 						$datas['page'] = $this->getPage($id);
 						$viewFile = 'apprenti/page';
 
-						$this->replaceContent($id, $user->getId(), $datas['page']['contenu']);
+						$this->replaceContent($id, $user->getId(), $user->getTuteur()['id_tuteur'], $datas['page']['contenu']);
 					break;
 					case 'modifierpage':
 						$this->updateContent($user->getId());
@@ -29,7 +29,7 @@
 						$datas['page'] = $this->getPage($id);
 						$viewFile = 'apprenti/page';
 
-						$this->replaceContent($id, $user->getId(), $datas['page']['contenu']);
+						$this->replaceContent($id, $user->getId(), $user->getTuteur()['id_tuteur'], $datas['page']['contenu']);
 					break;
 				}
 			}
@@ -57,25 +57,27 @@
 			return $req;
 		}
 
-		private function replaceContent($id_page, $id_apprenti, &$content)
+		private function replaceContent($id_page, $id_apprenti, $id_tuteur, &$content)
 		{
-			$formulaires = \libs\DB::query('SELECT * FROM formulaires LEFT JOIN contenu ON formulaires.id_formulaire = contenu.id_formulaire WHERE formulaires.id_page = ? AND contenu.id_apprenti = ?', array($id_page, $id_apprenti))->fetchAll();
+			$formulaires = \libs\DB::query('SELECT formulaires.id_formulaire AS id_formulaire, formulaires.cible AS cible, contenus.valeur AS valeur FROM formulaires LEFT JOIN contenus ON formulaires.id_formulaire = contenus.id_formulaire WHERE formulaires.id_page = ? AND (contenus.id_utilisateur = ? OR contenus.id_utilisateur = ? OR contenus.id_utilisateur IS NULL)', array($id_page, $id_apprenti, $id_tuteur))->fetchAll();
 
-			while(preg_match('#%(.+)%#', $content, $formName))
+			while(preg_match('#%\d%#', $content, $formName))
 			{
+				$formId = str_replace('%', '', $formName[0]);
+
 				$exist = false;
 
 				foreach($formulaires as $formulaire)
 				{
-					if($formulaire['id_formulaire'] == $formName[1])
+					if($formulaire['id_formulaire'] == $formId)
 					{
 						if($formulaire['cible'] == 'apprentis')
 						{
-							$content = str_replace($formName[0], '<div class="input-field inline"><input type="text" name="'. $formName[1] .'" value="'. $formulaire['valeur'] .'" /></div>', $content);
+							$content = str_replace($formName[0], '<div class="input-field inline"><input type="text" name="'. $formId .'" value="'. $formulaire['valeur'] .'" /></div>', $content);
 						}
-						else if($formulaure['cible'] == 'tuteurs')
+						else if($formulaire['cible'] == 'tuteurs')
 						{
-							$content = str_replace($formName[0], '<div class="input-field inline"><input type="text" name="'. $formName[1] .'" value="'. $formulaire['valeur'] .'" disabled /></div>', $content);
+							$content = str_replace($formName[0], '<div class="input-field inline"><input type="text" name="'. $formId .'" value="'. $formulaire['valeur'] .'" disabled /></div>', $content);
 						}
 
 						$exist = true;
