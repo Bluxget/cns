@@ -2,9 +2,7 @@
 <div class="row">
 	<a class="btn-large  blue-grey darken-4 left" href="?action=#">ACCUEIL</a><h4>Liste des Apprentis</h4>
 	<h5>
-    <?php foreach($datas['nom_section'] as $nom_section): ?>
-		Section : <?=strtoupper($nom_section['nom_section']); ?>
-    <?php endforeach; ?>
+		Section : <?=strtoupper($datas['nom_section']); ?>
 	</h5>
 </div>
 

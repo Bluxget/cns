@@ -27,8 +27,8 @@
 						$datas['nom_apprenti'] = $user->getNomApprenti($id);
 						$id_classeur = $user->getIdClasseur($id);
 						$datas['pages'] = $user->getPages($id_classeur);
-						$view->setFile('formateur/liste_pages');
-						$view->setTitle('Formateur');
+						$view->setFile('responsable/liste_pages');
+						$view->setTitle('Responsable');
 						$view->setDatas($datas);
 					break;
 				}

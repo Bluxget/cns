@@ -7,7 +7,6 @@
 
 		public function execute(string $action = null, int $id = null)
 		{
-
 			if($action != null)
 			{
 				switch($action)
