@@ -7,6 +7,13 @@
 
 		public function execute(string $action = null, int $id = null)
 		{
+			$view = $this->_application->getView();
+			$user = $this->_application->getUser();
+			$datas['section'] = $user->getSection();
+			$view->setFile('formateur/liste_sections');
+			$view->setTitle('Formateur');
+			$view->setDatas($datas);
+
 			if($action != null)
 			{
 				switch($action)
@@ -33,15 +40,7 @@
 					break;
 				}
 			}
-			else
-			{
-				$view = $this->_application->getView();
-				$user = $this->_application->getUser();
-				$datas['section'] = $user->getSection();
-				$view->setFile('formateur/liste_sections');
-				$view->setTitle('Formateur');
-				$view->setDatas($datas);
-			}
+			
 		}
 
 
