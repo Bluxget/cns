@@ -5,15 +5,33 @@
 
 	class Responsable extends \core\Controller {
 
-		public function execute()
+		public function execute(string $action = null, int $id = null)
 		{
-			// si get page exist
-				// methode show page
-			// sinon
-				// Liste classeur
+			if($action != null)
+			{
+				switch($action)
+				{
+					case 'apprentis':
+						$view = $this->_application->getView();
+						$user = $this->_application->getUser();
+						$datas['apprentis'] = $user->getApprentis($id);
+						$datas['nom_section'] = $user->getNomSection($id);
+						$view->setFile('responsable/liste_apprentis');
+						$view->setTitle('Responsable');
+						$view->setDatas($datas);
+					break;
+				}
+			}
+			else
+			{
+				$view = $this->_application->getView();
+				$user = $this->_application->getUser();
+				$datas['section'] = $user->getSection();
+				$view->setFile('responsable/liste_sections');
+				$view->setTitle('Responsable');
+				$view->setDatas($datas);
+			}
 
-			$this->_application->getView()->setFile('responsable/liste_classeur');
-			$this->_application->getView()->setTitle('Responsable');
 		}
 
 		private function getPage(int $id_page)
