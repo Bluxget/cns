@@ -5,8 +5,6 @@
 
 	class Formateur extends \models\Utilisateur {
 
-		private $_section;
-		private $_apprentis;
 
 		public function getSection() {
 			$req = \libs\DB::query('SELECT sections.id_section, sections.nom AS nom_section FROM sections JOIN formateurs_sections
@@ -25,6 +23,30 @@
 			$req = \libs\DB::query('SELECT utilisateurs.id_utilisateur, utilisateurs.nom as nom_apprenti FROM utilisateurs
 															JOIN apprentis ON utilisateurs.id_utilisateur = apprentis.id_utilisateur
 															WHERE  apprentis.id_section = ?', array($id_section))->fetchAll();
+			return $req;
+		}
+		public function getNomApprenti($id_Apprenti){
+
+			$req = \libs\DB::query('SELECT utilisateurs.nom as nom_apprenti, utilisateurs.prenom as prenom_apprenti FROM utilisateurs
+															JOIN apprentis ON utilisateurs.id_utilisateur = apprentis.id_utilisateur
+															WHERE  apprentis.id_Utilisateur = ? LIMIT 1', array($id_Apprenti))->fetch();
+			return $req['nom_apprenti']." ".$req['prenom_apprenti'];
+		}
+		public function getIdClasseur($id_Apprenti)
+		{
+			$req = \libs\DB::query('SELECT classeurs.id_classeur AS id_classeur FROM classeurs
+															JOIN sections ON sections.id_section = classeurs.id_section
+															JOIN apprentis ON apprentis.id_section = sections.id_section
+															WHERE apprentis.id_utilisateur = ? LIMIT 1', array($id_Apprenti))->fetch();
+
+			return $req['id_classeur'];
+		}
+		public function getPages(int $id_classeur)
+		{
+			$req = \libs\DB::query('SELECT pages.id_page AS id_page, pages.titre AS titre, pages.position AS position FROM pages
+															WHERE pages.id_classeur = ?
+															ORDER BY pages.position ASC', array($id_classeur))->fetchAll();
+
 			return $req;
 		}
 
