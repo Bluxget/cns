@@ -26,10 +26,7 @@
 					case 'modifierpage':
 						$this->updateContent($user->getId());
 
-						$datas['page'] = $this->getPage($id);
-						$viewFile = 'apprenti/page';
-
-						$this->replaceContent($id, $user->getId(), $user->getTuteur()['id_tuteur'], $datas['page']['contenu']);
+						\libs\http\Response::redirect('?action=page&id='. $id);
 					break;
 				}
 			}
