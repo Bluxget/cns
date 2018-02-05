@@ -107,8 +107,8 @@ CREATE TABLE contenus(
         valeur         Text NOT NULL ,
         commentaire    Text ,
         id_formulaire  Int NOT NULL ,
-        id_apprenti Int NOT NULL ,
-        PRIMARY KEY (id_formulaire ,id_apprenti )
+        id_utilisateur Int NOT NULL ,
+        PRIMARY KEY (id_formulaire ,id_utilisateur )
 )ENGINE=InnoDB;
 #------------------------------------------------------------
 # Table: responsables_sections
@@ -131,6 +131,6 @@ ALTER TABLE responsables ADD CONSTRAINT FK_responsables_id_utilisateur FOREIGN K
 ALTER TABLE formateurs_sections ADD CONSTRAINT FK_enseigne_id_formateur FOREIGN KEY (id_formateur) REFERENCES formateurs(id_utilisateur);
 ALTER TABLE formateurs_sections ADD CONSTRAINT FK_enseigne_id_section FOREIGN KEY (id_section) REFERENCES sections(id_section);
 ALTER TABLE contenus ADD CONSTRAINT FK_contenus_id_formulaire FOREIGN KEY (id_formulaire) REFERENCES formulaires(id_formulaire);
-ALTER TABLE contenus ADD CONSTRAINT FK_contenus_id_apprenti FOREIGN KEY (id_apprenti) REFERENCES apprentis(id_utilisateur);
+ALTER TABLE contenus ADD CONSTRAINT FK_contenus_id_utilisateur FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id_utilisateur);
 ALTER TABLE responsables_sections ADD CONSTRAINT FK_gere_id_responsable FOREIGN KEY (id_responsable) REFERENCES responsables(id_utilisateur);
 ALTER TABLE responsables_sections ADD CONSTRAINT FK_gere_id_section FOREIGN KEY (id_section) REFERENCES sections(id_section);
