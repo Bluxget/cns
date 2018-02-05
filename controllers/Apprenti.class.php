@@ -45,7 +45,7 @@
 
 		private function getPages(int $id_classeur)
 		{
-			$req = \libs\DB::query('SELECT pages.id_page AS id_page, pages.titre AS titre FROM pages WHERE pages.id_classeur = ? ORDER BY pages.position ASC', array($id_classeur))->fetchAll();
+			$req = \libs\DB::query('SELECT pages.id_page AS id_page, pages.titre AS titre, pages.position AS position FROM pages WHERE pages.id_classeur = ? ORDER BY pages.position ASC', array($id_classeur))->fetchAll();
 
 			return $req;
 		}
@@ -103,7 +103,7 @@
 				{
 					if(is_numeric($id_formulaire))
 					{
-						\libs\DB::query('REPLACE INTO contenu(valeur, id_formulaire, id_apprenti) VALUES(?, ?, ?)', array($post, $id_formulaire, $id_apprenti)); // INSERT si la ligne n'exise pas, sinon UPDATE - Fonctionne sur MySQL/MariaDB
+						\libs\DB::query('REPLACE INTO contenus(valeur, id_formulaire, id_utilisateur) VALUES(?, ?, ?)', array($post, $id_formulaire, $id_apprenti)); // INSERT si la ligne n'exise pas, sinon UPDATE - Fonctionne sur MySQL/MariaDB
 					}
 				}
 			}
