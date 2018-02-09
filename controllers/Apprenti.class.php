@@ -10,7 +10,8 @@
 			$view = $this->_application->getView();
 			$user = $this->_application->getUser();
 			$id_classeur = $user->getIdClasseur();
-			$datas['pages'] = $this->getPages($id_classeur);
+			$classeur = new \models\Classeur;
+			$datas['pages'] = $classeur->getPages($id_classeur);
 			$viewFile = 'apprenti/liste_pages';
 
 			if($action != null)
@@ -18,7 +19,7 @@
 				switch($action)
 				{
 					case 'page':
-						$datas['page'] = $this->getPage($id);
+						$datas['page'] = $classeur->getPage($id);
 						$viewFile = 'apprenti/page';
 
 						$this->replaceContent($id, $user->getId(), $user->getTuteur()['id_tuteur'], $datas['page']['contenu']);
@@ -40,23 +41,9 @@
 			$view->setDatas($datas);
 		}
 
-		private function getPages(int $id_classeur)
-		{
-			$req = \libs\DB::query('SELECT pages.id_page AS id_page, pages.titre AS titre, pages.position AS position FROM pages WHERE pages.id_classeur = ? ORDER BY pages.position ASC', array($id_classeur))->fetchAll();
-
-			return $req;
-		}
-
-		private function getPage(int $id_page)
-		{
-			$req = \libs\DB::query('SELECT pages.id_page AS id_page, pages.titre AS titre, pages.contenu AS contenu, pages.position AS position FROM pages WHERE pages.id_page = ? LIMIT 1', array($id_page))->fetch();
-
-			return $req;
-		}
-
 		private function replaceContent($id_page, $id_apprenti, $id_tuteur, &$content)
 		{
-			$formulaires = \libs\DB::query('SELECT formulaires.id_formulaire AS id_formulaire, formulaires.cible AS cible, contenus.valeur AS valeur FROM formulaires LEFT JOIN contenus ON formulaires.id_formulaire = contenus.id_formulaire WHERE formulaires.id_page = ? AND (contenus.id_utilisateur = ? OR contenus.id_utilisateur = ? OR contenus.id_utilisateur IS NULL)', array($id_page, $id_apprenti, $id_tuteur))->fetchAll();
+			$formulaires = \libs\DB::query('SELECT formulaires.id_formulaire AS id_formulaire, formulaires.cible AS cible, formulaires.nom AS nom, contenus.valeur AS valeur, contenus.commentaire AS commentaire FROM formulaires LEFT JOIN contenus ON formulaires.id_formulaire = contenus.id_formulaire WHERE formulaires.id_page = ? AND (contenus.id_utilisateur = ? OR contenus.id_utilisateur = ? OR contenus.id_utilisateur IS NULL)', array($id_page, $id_apprenti, $id_tuteur))->fetchAll();
 
 			while(preg_match('#%\d%#', $content, $formName))
 			{
@@ -70,11 +57,11 @@
 					{
 						if($formulaire['cible'] == 'apprentis')
 						{
-							$content = str_replace($formName[0], '<div class="input-field inline"><input type="text" name="'. $formId .'" value="'. $formulaire['valeur'] .'" /></div>', $content);
+							$content = str_replace($formName[0], '<div class="input-field inline"><input type="text" name="'. $formId .'" id="'. $formId .'" value="'. $formulaire['valeur'] .'" title="'. $formulaire['commentaire'] .'" /><label for="'. $formId .'">'. $formulaire['nom'] .'</label></div>', $content);
 						}
 						else if($formulaire['cible'] == 'tuteurs')
 						{
-							$content = str_replace($formName[0], '<div class="input-field inline"><input type="text" name="'. $formId .'" value="'. $formulaire['valeur'] .'" disabled /></div>', $content);
+							$content = str_replace($formName[0], '<div class="input-field inline"><input type="text" name="'. $formId .'" id="'. $formId .'" value="'. $formulaire['valeur'] .'" disabled /><label for="'. $formId .'">'. $formulaire['nom'] .'</label></div>', $content);
 						}
 
 						$exist = true;
@@ -88,8 +75,6 @@
 					$content = str_replace($formName[0], '', $content);;
 				}
 			}
-			/*echo preg_match('#%(.+)%#', $content, $result);
-			var_dump($result);*/
 		}
 
 		private function updateContent($id_apprenti)

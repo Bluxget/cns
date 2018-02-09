@@ -25,7 +25,7 @@
 		<?php if(isset($datas['pages'])): ?>
 		<ul id="side_pages_classeur" class="dropdown-content">
 			<?php foreach($datas['pages'] as $page): ?>
-			<li><a href="?action=page&id=<?=$page['id_page']; ?>"><?=$page['position']; ?> - <?=$page['titre']; ?></a></li>
+			<li><a href="?action=page&id=<?=$page['id_page']; ?>" class="truncate"><?=$page['position']; ?> - <?=$page['titre']; ?></a></li>
 			<?php endforeach; ?>
 			<li class="divider"></li>
 		</ul>
@@ -68,5 +68,10 @@
 		<script src="js/jquery.min.js"></script>
 		<script src="js/materialize.js"></script>
 		<script src="js/init.js"></script>
+	<?php if(isset($datas['pages'])): ?>
+		<script>
+			Materialize.toast('Survolez les zones de texte pour voir les commentaires des formateurs', 8000);
+		</script>
+	<?php endif; ?>
 	</body>
 </html>
