@@ -68,7 +68,7 @@
 		<script src="js/jquery.min.js"></script>
 		<script src="js/materialize.js"></script>
 		<script src="js/init.js"></script>
-	<?php if(isset($datas['pages'])): ?>
+	<?php if(isset($datas['page'])): ?>
 		<script>
 			Materialize.toast('Survolez les zones de texte pour voir les commentaires des formateurs', 8000);
 		</script>
