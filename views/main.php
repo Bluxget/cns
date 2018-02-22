@@ -25,7 +25,7 @@
 		<?php if(isset($datas['pages'])): ?>
 		<ul id="side_pages_classeur" class="dropdown-content">
 			<?php foreach($datas['pages'] as $page): ?>
-			<li><a href="?action=page&id=<?=$page['id_page']; ?>" class="truncate"><?=$page['position']; ?> - <?=$page['titre']; ?></a></li>
+			<li><a href="?action=page&id=<?=$page['id_page']; ?><?php if(isset($datas['id_apprenti'])) echo '&id_apprenti='. $datas['id_apprenti']; ?>" class="truncate"><?=$page['position']; ?> - <?=$page['titre']; ?></a></li>
 			<?php endforeach; ?>
 			<li class="divider"></li>
 		</ul>
@@ -41,7 +41,7 @@
 			<li><a href="?action=disconnect">Deconnexion</a></li>
 			<li class="divider"></li>
 			<li><a href="index.php">Classeur</a></li>
-			<li><a class="dropdown-button" href="#!" data-activates="side_pages_classeur">Pages<i class="material-icons right">arrow_drop_down</i></a></li>
+			<?php if(isset($datas['pages'])): ?><li><a class="dropdown-button" href="#!" data-activates="side_pages_classeur">Pages<i class="material-icons right">arrow_drop_down</i></a></li><?php endif; ?>
 		</ul>
 	<?php endif; ?>
 

@@ -18,6 +18,7 @@
 
 			return $req;
 		}
+		
 		public function getTuteur() 
 		{
 			$req = \libs\DB::query('SELECT apprentis.id_tuteur AS id_tuteur, utilisateurs.prenom AS prenom, utilisateurs.nom AS nom FROM apprentis JOIN utilisateurs ON utilisateurs.id_utilisateur = apprentis.id_tuteur WHERE apprentis.id_utilisateur = ? LIMIT 1', array($this->getId()))->fetch();
