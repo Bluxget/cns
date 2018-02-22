@@ -41,14 +41,7 @@
 
 			return $req['id_classeur'];
 		}
-		public function getPages(int $id_classeur)
-		{
-			$req = \libs\DB::query('SELECT pages.id_page AS id_page, pages.titre AS titre, pages.position AS position FROM pages
-															WHERE pages.id_classeur = ?
-															ORDER BY pages.position ASC', array($id_classeur))->fetchAll();
-
-			return $req;
-		}
+		
 
 
 	};
