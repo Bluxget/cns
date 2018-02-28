@@ -23,7 +23,8 @@
 
 			$req = \libs\DB::query('SELECT utilisateurs.id_utilisateur, utilisateurs.nom as nom_apprenti FROM utilisateurs
 															JOIN apprentis ON utilisateurs.id_utilisateur = apprentis.id_utilisateur
-															WHERE  apprentis.id_section = ?', array($id_section))->fetchAll();
+															WHERE  apprentis.id_section = ?
+															ORDER BY nom_apprenti', array($id_section))->fetchAll();
 			return $req;
 		}
 		public function getNomApprenti($id_Apprenti){
@@ -42,6 +43,6 @@
 
 			return $req['id_classeur'];
 		}
-		
+
 
 	};

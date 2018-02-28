@@ -9,7 +9,7 @@
 <div class="row">
 <?php foreach($datas['pages'] as $page): ?>
 	<div class="collection">
-		<a href="?action=page&id=<?=$page['id_page']; ?>" class="collection-item"><span class="badge"><?=$page['position']; ?></span><?=$page['titre']; ?></a>
+		<a href="?action=page&id=<?=$page['id_page'];?>" class="collection-item"><span class="badge"><?=$page['position']; ?></span><?=$page['titre']; ?></a>
 	</div>
 <?php endforeach; ?>
 </div>
