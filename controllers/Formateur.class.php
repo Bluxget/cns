@@ -88,7 +88,7 @@
 																			LEFT JOIN contenus ON formulaires.id_formulaire = contenus.id_formulaire
 																			WHERE formulaires.id_page = ? and contenus.id_utilisateur = ?', array($idPage, $id_apprenti))->fetchAll();
 			//var_dump($formulaires);
-			if ($formulaires != NULL){
+			if ($formulaires != null){
 				while(preg_match('#%\d%#', $content, $formName))
 				{
 					$formId = str_replace('%', '', $formName[0]);
@@ -98,7 +98,6 @@
 					{
 						if($formulaire['id_formulaire'] == $formId)
 						{
-
 							$content = str_replace($formName[0], '<div>
 																											<label for="apprentiContent">Contenu '.ucfirst($formulaire['cible']).'</label>
 																										</div>
@@ -117,7 +116,6 @@
 																										', $content);
 							$exists = true;
 						}
-
 					}
 					if(!$exists)
 					{
