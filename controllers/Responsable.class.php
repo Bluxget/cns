@@ -81,12 +81,12 @@
 						if($formulaire['id_formulaire'] == $formId)
 						{
 							$content = str_replace($formName[0], '<div>
-																										<label for="apprentiContent">Contenu Apprenti</label>
+																										<label for="apprentiContent">Contenu '.ucfirst($formulaire['cible']).'</label>
 																										</div>
 																										<div class="card-panel" id="apprentiContent">
 																											<span class="blue-text text-darken-2" >'.stripslashes($formulaire['valeur']).'</span>
 																										</div>
-																										<label for="EnseignantContent">Commentaire Enseignant</label>
+																										<label for="EnseignantContent">Commentaire Formateur</label>
 																										<div class="card-panel" id="EnseignantContent">
 																											<span class="green-text text-darken-2" >'.stripslashes($formulaire['commentaire']).'</span>
 																										</div>

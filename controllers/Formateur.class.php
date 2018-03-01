@@ -98,8 +98,9 @@
 					{
 						if($formulaire['id_formulaire'] == $formId)
 						{
+
 							$content = str_replace($formName[0], '<div>
-																											<label for="apprentiContent">Contenu Apprenti</label>
+																											<label for="apprentiContent">Contenu '.ucfirst($formulaire['cible']).'</label>
 																										</div>
 																										<div class="card-panel">
 																											<span class="blue-text text-darken-2">'.stripslashes($formulaire['valeur']).'</span>
@@ -148,8 +149,8 @@
 					if(is_numeric($id_formulaire))
 					{
 						\libs\DB::query('UPDATE contenus
-														SET commentaire = ?
-														WHERE id_formulaire = ? AND id_utilisateur = ?', array($post, $id_formulaire, $id_apprenti));
+														 SET commentaire = ?
+														 WHERE id_formulaire = ? AND id_utilisateur = ?', array($post, $id_formulaire, $id_apprenti));
 						//\libs\DB::query('REPLACE INTO contenus(commentaire, id_formulaire, id_utilisateur) VALUES(?, ?, ?)', array($post, $id_formulaire, $id_apprenti)); // INSERT si la ligne n'exise pas, sinon UPDATE - Fonctionne sur MySQL/MariaDB
 					}
 				}
