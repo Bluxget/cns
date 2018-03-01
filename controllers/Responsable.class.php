@@ -75,7 +75,7 @@
 				while(preg_match('#%\d%#', $content, $formName))
 				{
 					$formId = str_replace('%', '', $formName[0]);
-
+					$exists = false;
 					foreach($formulaires as $formulaire)
 					{
 						if($formulaire['id_formulaire'] == $formId)
@@ -91,8 +91,26 @@
 																											<span class="green-text text-darken-2" >'.stripslashes($formulaire['commentaire']).'</span>
 																										</div>
 																										', $content);
+							$exists = true;
 						}
+
 					}
+					if(!$exists)
+					{
+						$content =str_replace($formName[0],'<div class="card-panel red darken-1">
+																										<span class=" white-text">Contenu Inexistant</span>
+																									</div>', $content);
+					}
+				}
+			}
+			else
+			{
+				while(preg_match('#%\d%#', $content, $formName))
+				{
+					$formId = str_replace('%', '', $formName[0]);
+					$content =str_replace($formName[0],'<div class="card-panel red darken-1">
+																									<span class=" white-text">Contenu Inexistant</span>
+																								</div>', $content);
 				}
 			}
 		}

@@ -92,20 +92,48 @@
 				while(preg_match('#%\d%#', $content, $formName))
 				{
 					$formId = str_replace('%', '', $formName[0]);
+					$exists = false;
 
 					foreach($formulaires as $formulaire)
 					{
 						if($formulaire['id_formulaire'] == $formId)
 						{
-							$content = str_replace($formName[0], '<div class="card-panel">
-																											<span class="blue-text text-darken-2">'.$formulaire['valeur'].'</span>
+							$content = str_replace($formName[0], '<div>
+																											<label for="apprentiContent">Contenu Apprenti</label>
+																										</div>
+																										<div class="card-panel">
+																											<span class="blue-text text-darken-2">'.stripslashes($formulaire['valeur']).'</span>
+																										</div>
+																										<div>
+																											<label for="apprentiContent">Commentaire Formateur</label>
+																										</div>
+																										<div class="card-panel">
+																											<span class="green-text text-darken-2">'.stripslashes($formulaire['commentaire']).'</span>
 																										</div>
 																										<div class="input-field inline col s12">
-																										<input type="text" name="'. $formId .'" id="'. $formId .'" value="'. stripslashes($formulaire['commentaire']) .'" title="'. stripslashes($formulaire['commentaire']) .'" />
-																										<label for="'. $formId .'">Commentaire Enseignant</label></div>
+																										<input type="text" name="'. $formId .'" id="'. $formId .'" value="'.stripslashes($formulaire['commentaire']).'"/>
+																										<label for="'. $formId .'">Editer Commentaire</label></div>
 																										', $content);
+							$exists = true;
 						}
+
 					}
+					if(!$exists)
+					{
+						$content =str_replace($formName[0],'<div class="card-panel red darken-1">
+																										<span class=" white-text">Contenu Inexistant</span>
+																									</div>', $content);
+					}
+				}
+			}
+			else
+			{
+				while(preg_match('#%\d%#', $content, $formName))
+				{
+					$formId = str_replace('%', '', $formName[0]);
+					$content =str_replace($formName[0],'<div class="card-panel red darken-1">
+																									<span class=" white-text">Contenu Inexistant</span>
+																								</div>', $content);
 				}
 			}
 		}

@@ -3,7 +3,7 @@
 </div>
 
 <form action="?action=modifierpage&id=<?=$datas['page']['id_page']; ?>"  method="post">
-	<div class="left row">
+	<div class="center row">
 		<?=$datas['page']['contenu']; ?>
 	</div>
 
